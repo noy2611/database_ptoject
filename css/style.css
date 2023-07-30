@@ -1,0 +1,90 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+header,
+main,
+footer,
+nav,
+aside,
+section,
+div {
+    display: block;
+}
+
+body {
+    width: 100%;
+    background-color: #000;
+    color: aliceblue;
+    font-family: 'Metamorphous';
+    position: relative;
+}
+
+
+
+/* ----------------------------layout-2---------------------------------- */
+
+
+#body-of-layout-2 {
+    font-weight: 650;
+    line-height: 1.4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(45deg, #ffcc5c 20%, #3c3c3c 20% 50%, #ff6f69 50% 80%, #96ceb4 80%);
+    color: #fff;
+}
+
+#form-wrapper-2{
+  display: flex;
+    background-color: rgba(27, 27, 50, 0.8);
+    width: 100%;
+    justify-content: center;
+    align-items: center; 
+    border-radius: 20px;
+    padding: 20px; 
+    
+}
+
+#form-wrapper-2 >form{
+    display: flex;
+    flex-flow: column;
+    width: 500px;
+    height: 500px;
+    text-align: center;
+    gap: 5px;
+    
+
+  }
+
+  #form-wrapper-2 >form>h1 {
+    font-family: 'Medula One', sans-serif;
+    font-size: 95px;
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+#submit-button {
+    background-color:rgba(59, 191, 59, 0.923);
+    border-color: rgb(255, 255, 255);
+    margin-top: 50px;
+}
+
+@media only screen and (max-width: 600px) {
+    #form-wrapper-2 {
+      flex-direction: column;
+      padding: 10px;
+    }
+  
+    #form-wrapper-2 > form {
+      width: 90%;
+      height: auto;
+    }
+  
+    #form-wrapper-2 >form>h1 {
+      font-size: 60px;
+    }
+  }
