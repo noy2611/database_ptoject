@@ -34,7 +34,9 @@ body {
     align-items: center;
     height: 100vh;
     font-family: 'Montserrat', sans-serif;
-    background: linear-gradient(45deg, #ffcc5c 20%, #3c3c3c 20% 50%, #ff6f69 50% 80%, #96ceb4 80%);
+    /* background: linear-gradient(45deg, #ffcc5c 20%, #3c3c3c 20% 50%, #ff6f69 50% 80%, #96ceb4 80%); */
+    background: linear-gradient(45deg, #260637 20%, #9D48BD 20% 50%, #E33067 50% 80%, #260637 80%);
+    
     color: #fff;
 }
 
@@ -52,9 +54,9 @@ body {
 #form-wrapper-2 >form{
     display: flex;
     flex-flow: column;
-    width: 500px;
-    height: 500px;
-    text-align: center;
+    width: 50vw;
+    height: 70vh;
+    /* text-align: center; */
     gap: 5px;
     
 
@@ -65,23 +67,28 @@ body {
     font-size: 95px;
     font-weight: 400;
     line-height: 1.2;
+    text-align: center;
 }
 
 #submit-button {
-    background-color:rgba(59, 191, 59, 0.923);
+    background-color:#2d83b2;
     border-color: rgb(255, 255, 255);
     margin-top: 50px;
+}
+ol, ul {
+  padding-left: 0;
 }
 
 @media only screen and (max-width: 600px) {
     #form-wrapper-2 {
       flex-direction: column;
       padding: 10px;
+      height:70vh;
     }
   
     #form-wrapper-2 > form {
       width: 90%;
-      height: auto;
+      height: 90vh;
     }
   
     #form-wrapper-2 >form>h1 {
