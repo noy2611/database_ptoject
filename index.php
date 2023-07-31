@@ -22,7 +22,7 @@
     <main>
         
         <div id="form-wrapper-2">
-            <form action="php/get_form.php" method="get" class="needs-validation" novalidate>
+            <form action="#" method="get" class="needs-validation" novalidate>
                 <h1>Events</h1>
                 <ul>
                     <ol>1.Display events from the past x weeks.</ol>
