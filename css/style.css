@@ -14,14 +14,31 @@ div {
 }
 
 body {
-    width: 100%;
+    /* width: 100%;
     background-color: #000;
     color: aliceblue;
     font-family: 'Metamorphous';
     position: relative;
+    background: linear-gradient(45deg, #1499FC 20%, #15D9FD 20% 50%, #ffff 50% 80%, #260637 80%);
+    background-attachment: scroll;
+    background-repeat: no-repeat; */
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #000;
+    color: aliceblue;
+    font-family: 'Metamorphous';
+    position: relative;
+    background: linear-gradient(45deg, #1499FC 20%, #15D9FD 20% 50%, #ffff 50% 80%, #260637 80%);
+    background-attachment: fixed;
 }
 
 
+#imgdatab{
+  width: 15%;
+  height: 40%;
+}
 
 /* ----------------------------layout-2---------------------------------- */
 
@@ -31,19 +48,28 @@ body {
     line-height: 1.4;
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
+    flex-direction: column;
+    
+    /* align-items: center; */
+    height: 100%;
     font-family: 'Montserrat', sans-serif;
     /* background: linear-gradient(45deg, #ffcc5c 20%, #3c3c3c 20% 50%, #ff6f69 50% 80%, #96ceb4 80%); */
-    background: linear-gradient(45deg, #260637 20%, #9D48BD 20% 50%, #E33067 50% 80%, #260637 80%);
+    /* background: linear-gradient(45deg, #1499FC 20%, #15D9FD 20% 50%, #ffff 50% 80%, #260637 80%); */
     
     color: #fff;
 }
 
+
+main{
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  margin-bottom: 20px;
+}
 #form-wrapper-2{
   display: flex;
     background-color: rgba(27, 27, 50, 0.8);
-    width: 100%;
+    width: 50%;
     justify-content: center;
     align-items: center; 
     border-radius: 20px;

@@ -18,8 +18,9 @@
 </head>
 
 <body id="body-of-layout-2">
+<img src="imge/dateb.png" id="imgdatab">
     <main>
-        <img src="imge/dateb.png">
+        
         <div id="form-wrapper-2">
             <form action="php/get_form.php" method="get" class="needs-validation" novalidate>
                 <h1>Events</h1>
