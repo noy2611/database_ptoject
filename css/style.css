@@ -81,7 +81,6 @@ main{
     display: flex;
     flex-flow: column;
     width: 50vw;
-    height: 70vh;
     /* text-align: center; */
     gap: 5px;
     
