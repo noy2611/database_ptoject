@@ -27,7 +27,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: #000;
-    color: aliceblue;
+
     font-family: 'Metamorphous';
     position: relative;
     background: linear-gradient(45deg, #1499FC 20%, #15D9FD 20% 50%, #ffff 50% 80%, #260637 80%);
@@ -102,6 +102,10 @@ main{
 }
 ol, ul {
   padding-left: 0;
+}
+
+.modal-h3, .modal-title{
+  color: #000;
 }
 
 @media only screen and (max-width: 600px) {
