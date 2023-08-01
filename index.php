@@ -54,11 +54,11 @@ include "db.php";
                     <input type="submit" id="option1" class="btn btn-primary" value="Click">
                 </div>
                 <div class="box-grid">
-                    <form action="#" method="GET" >
-                    <h4>2</h4>
-                    <h5>Show upcoming events and their associated customers </h5>
-                    <br>
-                    <input type="submit" id="option2" class="btn btn-primary" value="Click" name="option2">
+                    <form action="index.php" method="POST">
+                        <h4>2</h4>
+                        <h5>Show upcoming events and their associated customers </h5>
+                        <br>
+                        <input type="submit" id="option2" class="btn btn-primary" value="Click" name="option2">
                     </form>
                 </div>
                 <div class="box-grid">
@@ -286,8 +286,7 @@ include "db.php";
         <!-- php -->
         <?php
 
-        if (isset($_GET['opition2'])) {
-            echo '<script>console.log(blaaaaaaa)</script>';
+        if (isset($_POST['option2'])) {
             $query = "SELECT e.event_id, et.event_name, c.coust_first_name, c.coust_last_name, e.date
                                 FROM team6_Events AS e
                                 INNER JOIN team6_customer AS c ON e.customer_id = c.coust_id
@@ -295,12 +294,13 @@ include "db.php";
                                 WHERE e.date >= CURDATE()
                                 ORDER BY e.date";
             $result2 = mysqli_query($connection, $query);
-            
+
             if (!$result2) {
                 die("DB query failed.");
             }
             echo '<div class="table-sql">';
             echo '<table id="myTable" class="cell-border" style="width:100%">';
+            echo '<thead>';
             echo '<tr>';
             echo '<th>Event ID</th>';
             echo '<th>Event Name</th>';
@@ -310,17 +310,15 @@ include "db.php";
             echo '</tr>';
             echo '</thead>';
             echo '<tbody>';
-            echo '<tr>';
-
             while ($row = mysqli_fetch_assoc($result2)) {
+                echo '<tr>';
                 echo '<td>' . $row["event_id"] . '</td>';
                 echo '<td>' . $row["event_name"] . '</td>';
                 echo '<td>' . $row["coust_first_name"] . '</td>';
                 echo '<td>' . $row["coust_last_name"] . '</td>';
                 echo '<td>' . $row["date"] . '</td>';
+                echo '</tr>';
             }
-
-            echo '</tr>';
             echo '</tbody>';
             echo '</table>';
         }

@@ -76,7 +76,9 @@ main {
 }
 
 
-
+.btn-primary {
+  width: 100%;
+}
 .grid-option {
   position: relative;
   width: 100%;
