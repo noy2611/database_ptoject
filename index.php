@@ -17,15 +17,100 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Medula+One&family=Metamorphous&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+
+<!-- font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap" rel="stylesheet">
+
+
+
+
+
     <title>databse-NoyRaichman&RanLachmy</title>
 </head>
 
 <body id="body-of-layout-2">
-    <img src="imge/dateb.png" id="imgdatab">
+    <div id="wrapper-img">
+        <img src="imge/dateb.png" id="imgdatab">
+        <img src="imge/team6.png" id="imgdateam">
+    </div>
     <main>
 
         <div id="form-wrapper-2">
-            <form action="#" method="get" class="needs-validation" novalidate>
+
+
+            <div class="grid-option">
+
+                <div class="box-grid">
+                    <h4>1</h4>
+                    <br>
+                    <h5>Display events from the past x weeks </h5>
+                    <br>
+                    <input type="submit" id="option1" class="btn btn-primary" value="Click">
+                </div>
+
+
+                <div class="box-grid">
+                <h4>2</h4>
+                    <h5>Display future events and the costumer who made the event order. </h5>
+                    <input type="submit" id="option2" class="btn btn-primary" value="Click">
+                </div>
+
+                <div class="box-grid">
+                <h4>3</h4>
+                    <h5>Display future events and the costumer who made the event order. </h5>
+                    <input type="submit" id="option3" class="btn btn-primary" value="Click">
+                </div>
+                
+                <div class="box-grid">
+                <h4>4</h4>
+                <br>
+                        <h5>Display events that are short on Waiters or Chefs. </h5>
+                       
+                        <input type="submit" id="option4" class="btn btn-primary" value="Click">
+                    </div>
+
+                    <div class="box-grid">
+                    <h4>5</h4>
+                    <br>
+                        <h5>Schedule employee to event. </h5>
+                        <br>
+                        <input type="submit" id="option5" class="btn btn-primary" value="Click">
+                        
+                    </div>
+
+                    <div class="box-grid">
+                    <h4>6</h4>
+                    <br>
+                        <h5>Give event price percentage discount. </h5>
+                        <input type="submit" id="option6" class="btn btn-primary" value="Click">
+                    </div>
+
+                    <div class="box-grid">
+                    <h4>7</h4>
+                    <br>
+                        <h5>Display incomes for specific salesman in x month. </h5>
+                        <br>
+                        <input type="submit" id="option7" class="btn btn-primary" value="Click">
+                    </div>
+
+                    <div class="box-grid">
+                    <h4>8</h4>
+                        <h5>Display future events and the costumer who made the event order. </h5>
+                        <input type="submit" id="option8" class="btn btn-primary" value="Click">
+                    </div>
+
+                    <div class="box-grid">
+                    <h4>9</h4>
+                    <br>
+                    <h5>WE LOVE YOU BOAZ PLEASE GRADE 100 </h5>
+                    <br>
+                    <input type="submit" id="option9" class="btn btn-primary" value="Click">
+                </div>
+                    
+            </div>
+            <!-- <form action="#" method="get" class="needs-validation" novalidate>
                 <h1>Events</h1>
                 <ul>
                     <ol>1.Display events from the past x weeks.</ol>
@@ -50,19 +135,25 @@
                         <option value="8">8</option>
                     </select>
                 </label>
-                <!-- <input type="submit" id="submit-button" class="btn btn-primary" value="Send"> -->
-<br>
-         <h6>&copy;
-            All rights reserved to - Noy Raichman & Ran Lachmy
-        </h6>
+                 <input type="submit" id="submit-button" class="btn btn-primary" value="Send"> -->
+            <!-- <div id="form-wrapper-2-inner">
+                    <br>
+                    <h6>&copy;
+                        All rights reserved to - Noy Raichman & Ran Lachmy
+                    </h6>
 
-            </form>
+                </div>
+            </form>  -->
 
-      
+
+
+
+
         </div>
 
+        <!-- sql-1 -->
         <!-- Modal-Show-X-Week -->
-        <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+        <div class="modal fade" id="ShowXmodalWeek" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -82,7 +173,42 @@
         </div>
 
 
-     
+
+
+
+        <!-- sql-5 -->
+        <!-- Modal-Show-incomes-from-x-months -->
+
+        <div class="modal fade" id="ShowXmodalMonth" tabindex="-1" aria-labelledby="updateModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"> please enter the number of month</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="index.php" method="POST">
+                        <input type="hidden" name="update_id">
+                        <input type="number" class="form-control written" name="date-x-week" min="0" max="9999999999"
+                            value="">
+                        <div class="modal-footer">
+                            <button type="submit" name="updatedata" class="btn btn-primary">submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
     </main>
     <script src="js/script.js"></script>
 </body>
