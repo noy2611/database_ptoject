@@ -120,12 +120,12 @@ include "db.php";
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-form">
-                        <form action="index.php" method="POST">
-                            <input type="hidden" name="update_id">
-                            <input type="number" class="form-control written" name="date-x-week" min="0"
-                                max="9999999999" value="" placeholder="Number weeks">
+                        <form action="index.php#myTable" method="POST">
+                            <!-- <input type="hidden" name="update_id"> -->
+                            <input type="number" class="form-control written" name="weeks" min="0" max="9999999999"
+                                value="" placeholder="Number weeks">
                             <div class="modal-footer">
-                                <button type="submit" name="updatedata" class="btn btn-primary">submit</button>
+                                <button type="submit" name="option1" class="btn btn-primary">submit</button>
                             </div>
                         </form>
                     </div>
@@ -286,7 +286,39 @@ include "db.php";
         <!-- php -->
         <?php
 
-        if (isset($_POST['option2'])) {
+         if (isset($_POST['option1'])) {
+            $weeks = $_POST['weeks'];
+            $query = "SELECT e.event_id, t.event_name, e.date 
+                      FROM team6_Events as e
+                      INNER JOIN team6_event_types as t ON e.event_type_id = t.event_type_id
+                      WHERE e.date BETWEEN CURDATE() - INTERVAL $weeks WEEK AND CURDATE()";
+
+            $result = mysqli_query($connection, $query);
+
+            if (!$result) {
+                die("DB query failed.");
+            }
+            echo '<div class="table-sql">';
+            echo '<table id="myTable" class="cell-border" style="width:100%">';
+            echo '<thead>';
+            echo '<tr>';
+            echo '<th>Event ID</th>';
+            echo '<th>Event Name</th>';
+            echo '<th>Date</th>';
+            echo '</tr>';
+            echo '</thead>';
+            echo '<tbody>';
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo '<tr>';
+                echo '<td>' . $row["event_id"] . '</td>';
+                echo '<td>' . $row["event_name"] . '</td>';
+                echo '<td>' . $row["date"] . '</td>';
+                echo '</tr>';
+            }
+            echo '</tbody>';
+            echo '</table>';
+        }
+        else if (isset($_POST['option2'])) {
             $query = "SELECT e.event_id, et.event_name, c.coust_first_name, c.coust_last_name, e.date
                                 FROM team6_Events AS e
                                 INNER JOIN team6_customer AS c ON e.customer_id = c.coust_id
@@ -323,6 +355,7 @@ include "db.php";
             echo '</table>';
         }
 
+       
 
         ?>
 
