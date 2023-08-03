@@ -1,7 +1,28 @@
 <?php
 include "db.php";
+function team6_CalculateRevenue($v_salesperson_name, $v_month, $v_year) {
+global $connection;
+ $v_salesperson_name = mysqli_real_escape_string($connection, $v_salesperson_name);
+ $v_month = (int)$v_month;
+ $v_year = (int)$v_year;
+
+ $query = "SELECT team6_CalculateRevenue('$v_salesperson_name', $v_month, $v_year) AS revenue";
+ $result = mysqli_query($connection, $query);
+
+ if (!$result) {
+     die("Function query failed: " . mysqli_error($connection));
+ }
+
+ // Fetch the result row
+ $row = mysqli_fetch_assoc($result);
+ $revenue = $row['revenue'];
+
+ return $revenue;
+}
+
 ?>
 <!DOCTYPE html>
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -36,8 +57,8 @@ include "db.php";
 
 <body id="body-of-layout-2">
     <div id="wrapper-img">
-        <img src="imge/dateb.png" id="imgdatab">
-        <img src="imge/team6.png" id="imgdateam">
+        <img src="imge/dateb.png" id="imgdatab" alt="datebase" title="DataBase">
+        <img src="imge/team6.png" id="imgdateam" alt="team6" title="Team6">
     </div>
     <main>
         <div id="form-wrapper-2">
@@ -52,13 +73,13 @@ include "db.php";
                 <div class="box-grid">
                     <form action="index.php#myTable" method="POST">
                         <h4>2</h4>
-                        <h5>Show upcoming events and their associated customers </h5>
+                        <h5>Show upcoming events and their customers </h5>
                         <input type="submit" id="option2" class="btn btn-primary" value="Click" name="option2">
                     </form>
                 </div>
                 <div class="box-grid">
                     <h4>3</h4>
-                    <h5>Display incomes from the past x months. </h5>
+                    <h5>Show incomes from x months ago. </h5>
                     <br>
                     <input type="submit" id="option3" class="btn btn-primary" value="Click">
                 </div>
@@ -144,7 +165,8 @@ include "db.php";
                     </div>
                     <div class="modal-form">
                         <form action="index.php#myTable" method="POST">
-                            <input type="number" class="form-control written" name="months" min="0" max="9999999999" value="" placeholder="Month number">
+                            <input type="number" class="form-control written" name="months" min="0" max="9999999999"
+                                value="" placeholder="Month number">
                             <div class="modal-footer">
                                 <button type="submit" name="option3" class="btn btn-primary">submit</button>
                             </div>
@@ -167,9 +189,11 @@ include "db.php";
                     <div class="modal-form">
                         <form action="index.php#myTable" method="POST">
                             <label class="labellightbox">Enter event id </label>
-                            <input type="number" class="form-control written" name="eventId" min="0" max="9999999999" value="" placeholder="Event id">
+                            <input type="number" class="form-control written" name="eventId" min="0" max="9999999999"
+                                value="" placeholder="Event id">
                             <label class="labellightbox">Enter employee id </label>
-                            <input type="number" class="form-control written" name="staffId" min="0" max="9999999999" value="" placeholder="employee id">
+                            <input type="number" class="form-control written" name="staffId" min="0" max="9999999999"
+                                value="" placeholder="employee id">
                             <div class="modal-footer">
                                 <button type="submit" name="option5" class="btn btn-primary">submit</button>
                             </div>
@@ -187,27 +211,23 @@ include "db.php";
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title"> please enter the price percentage discount.</h5>
+                        <h5 class="modal-title"> please enter the percentage discount.</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-form">
-                        <form action="index.php" method="POST">
-                            <input type="hidden" name="update_id">
+                        <form action="index.php#myTable" method="POST">
                             <label class="labellightbox">Enter event id </label>
-                            <input type="number" class="form-control written" name="date-x-week" min="0"
-                                max="9999999999" value="" placeholder="event id">
+                            <input type="number" class="form-control written" name="eventId" min="0" max="9999999999" value="" placeholder="event id">
                             <label class="labellightbox">Enter percentage discount</label>
-                            <input type="number" class="form-control written" name="date-x-week" min="0"
-                                max="9999999999" value="" placeholder="percentage discount">
+                            <input type="number" class="form-control written" name="discount" min="0" max="100" value="" placeholder="percentage discount">
                             <div class="modal-footer">
-                                <button type="submit" name="updatedata" class="btn btn-primary">submit</button>
+                                <button type="submit" name="option6" class="btn btn-primary">submit</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-
         <!-- sql-7 -->
         <!-- Modal-Display-incomes-for-specific-salesman-in-x-month -->
         <div class="modal fade" id="Display-incomes-for-specific-salesman-in-x-month" tabindex="-1"
@@ -219,17 +239,17 @@ include "db.php";
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-form">
-                        <form action="index.php" method="POST">
+                        <form action="index.php#myTable" method="POST">
                             <input type="hidden" name="update_id">
                             <label class="labellightbox">Select the salesman</label>
-                            <select name="salesmanselect" class="form-select" required>
+                            <select name="salesperson_name" class="form-select" required>
                                 <option value="">-</option>
-                                <option value="Nomi">Nomi</option>
-                                <option value="Ravi">Ravi</option>
-                                <option value="Daniel">Daniel</option>
+                                <option value="Nomi Fisher">Nomi Fisher</option>
+                                <option value="Ravi Levy">Ravi Levy</option>
+                                <option value="Daniel shlishi">Daniel shlishi</option>
                             </select>
                             <label class="labellightbox">Select the month of income</label>
-                            <select name="monthselect" class="form-select" required>
+                            <select name="month" class="form-select" required>
                                 <option value="">-</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -245,7 +265,7 @@ include "db.php";
                                 <option value="12">12</option>
                             </select>
                             <label class="labellightbox">Select the year of income</label>
-                            <select name="monthselect" class="form-select" required>
+                            <select name="year" class="form-select" required>
                                 <option value="">-</option>
                                 <option value="2020">2020</option>
                                 <option value="2021">2021</option>
@@ -254,7 +274,7 @@ include "db.php";
                                 <option value="2024">2024</option>
                             </select>
                             <div class="modal-footer">
-                                <button type="submit" name="updatedata" class="btn btn-primary">submit</button>
+                                <button type="submit" name="option7" class="btn btn-primary">submit</button>
                             </div>
                         </form>
                     </div>
@@ -268,7 +288,7 @@ include "db.php";
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header-grade">
-                        <h1 class="modal-title-h1"> <i class="fa-solid fa-star"></i> &nbsp Your grade is 100 &nbsp<i
+                        <h1 class="modal-title-h1"> <i class="fa-solid fa-star"></i> &nbsp; Your grade is 100 &nbsp;<i
                                 class="fa-solid fa-star"></i> </h1>
                     </div>
                 </div>
@@ -345,7 +365,7 @@ include "db.php";
             }
             echo '</tbody>';
             echo '</table>';
-        }else if (isset($_POST['option3'])) {
+        } else if (isset($_POST['option3'])) {
             $months = $_POST['months'];
             $query = "SELECT SUM(price) AS revenue
             FROM team6_Events
@@ -425,12 +445,64 @@ include "db.php";
             echo '</tr>';
             echo '</thead>';
             echo '<tbody>';
-                echo '<tr>';
-                echo '<td>' . $row["message"] . '</td>';
-                echo '</tr>';  
+            echo '<tr>';
+            echo '<td>' . $row["message"] . '</td>';
+            echo '</tr>';
             echo '</tbody>';
             echo '</table>';
-        }  else if (isset($_POST['option8'])) {
+        } else if (isset($_POST['option6'])) {
+
+            $v_event_id = $_POST['eventId'];
+            $discount = $_POST['discount'];
+
+            $query = "CALL team6_DiscountToEvent($v_event_id, $discount)";
+            $result = mysqli_query($connection, $query);
+
+            if (!$result) {
+                die("Stored procedure call failed.");
+            }
+            $message = mysqli_query($connection, "SELECT @message AS message")->fetch_assoc()['message'];
+            echo '<div class="table-sql">';
+            echo '<table id="myTable" class="cell-border" style="width:100%">';
+            echo '<thead>';
+            echo '<tr>';
+            echo '<th>Message</th>';
+            echo '</tr>';
+            echo '</thead>';
+            echo '<tbody>';
+            echo '<tr>';
+            echo '<td>' . $message . '</td>';
+            echo '</tr>';
+            echo '</tbody>';
+            echo '</table>';
+        } else if (isset($_POST['option7'])) {
+
+            $salesperson_name = $_POST['salesperson_name'];
+            $month = (int)$_POST['month'];
+            $year = (int)$_POST['year'];
+        
+            $revenue = team6_CalculateRevenue($salesperson_name, $month, $year);
+
+            echo '<div class="table-sql">';
+            echo '<table id="myTable" class="cell-border" style="width:100%">';
+            echo '<thead>';
+            echo '<tr>';
+            echo '<th>Name</th>';
+            echo '<th>Month</th>';
+            echo '<th>Year</th>';
+            echo '<th>Revenue</th>';
+            echo '</tr>';
+            echo '</thead>';
+            echo '<tbody>';
+            echo '<tr>';
+            echo '<td>' .$salesperson_name . '</td>';
+            echo '<td>' .$month . '</td>';
+            echo '<td>' .$year . '</td>';
+            echo '<td>' .$revenue . '</td>';
+            echo '</tr>';
+            echo '</tbody>';
+            echo '</table>';
+        } else if (isset($_POST['option8'])) {
             $query = "SELECT e.event_id, e.customer_id, c.coust_first_name, c.coust_last_name, c.coust_phone, COUNT(event_id) AS total_events
             FROM team6_Events AS e
             INNER JOIN team6_customer AS c ON e.customer_id = c.coust_id
@@ -468,8 +540,6 @@ include "db.php";
             echo '</table>';
         }
         ?>
-
-        </div>
     </main>
 
     <script src="js/script.js"></script>
