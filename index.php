@@ -1,11 +1,7 @@
 <?php
 include "db.php";
 ?>
-
-
-
 <!DOCTYPE html>
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -93,10 +89,12 @@ include "db.php";
                     <input type="submit" id="option7" class="btn btn-primary" value="Click">
                 </div>
                 <div class="box-grid">
-                    <h4>8</h4>
-                    <h5>Display customers who made more then one order </h5>
-                    <br>
-                    <input type="submit" id="option8" class="btn btn-primary" value="Click">
+                    <form action="index.php#myTable" method="POST">
+                        <h4>8</h4>
+                        <h5>Display customers who made more then one order </h5>
+                        <br>
+                        <input type="submit" id="option8" name="option8" class="btn btn-primary" value="Click">
+                    </form>
                 </div>
                 <div class="box-grid">
                     <h4>9</h4>
@@ -145,12 +143,10 @@ include "db.php";
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-form">
-                        <form action="index.php" method="POST">
-                            <input type="hidden" name="update_id">
-                            <input type="number" class="form-control written" name="date-x-week" min="0"
-                                max="9999999999" value="" placeholder="Number month">
+                        <form action="index.php#myTable" method="POST">
+                            <input type="number" class="form-control written" name="months" min="0" max="9999999999" value="" placeholder="Month number">
                             <div class="modal-footer">
-                                <button type="submit" name="updatedata" class="btn btn-primary">submit</button>
+                                <button type="submit" name="option3" class="btn btn-primary">submit</button>
                             </div>
                         </form>
                     </div>
@@ -169,17 +165,13 @@ include "db.php";
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-form">
-                        <form action="index.php" method="POST">
-                            <input type="hidden" name="update_id">
+                        <form action="index.php#myTable" method="POST">
                             <label class="labellightbox">Enter event id </label>
-                            <input type="number" class="form-control written" name="date-x-week" min="0"
-                                max="9999999999" value="" placeholder="Event id">
+                            <input type="number" class="form-control written" name="eventId" min="0" max="9999999999" value="" placeholder="Event id">
                             <label class="labellightbox">Enter employee id </label>
-                            <input type="number" class="form-control written" name="date-x-week" min="0"
-                                max="9999999999" value="" placeholder="employee id">
-
+                            <input type="number" class="form-control written" name="staffId" min="0" max="9999999999" value="" placeholder="employee id">
                             <div class="modal-footer">
-                                <button type="submit" name="updatedata" class="btn btn-primary">submit</button>
+                                <button type="submit" name="option5" class="btn btn-primary">submit</button>
                             </div>
                         </form>
                     </div>
@@ -353,6 +345,31 @@ include "db.php";
             }
             echo '</tbody>';
             echo '</table>';
+        }else if (isset($_POST['option3'])) {
+            $months = $_POST['months'];
+            $query = "SELECT SUM(price) AS revenue
+            FROM team6_Events
+            WHERE date >= DATE_SUB(NOW(), INTERVAL $months MONTH)";
+            $result = mysqli_query($connection, $query);
+
+            if (!$result) {
+                die("DB query failed.");
+            }
+            echo '<div class="table-sql">';
+            echo '<table id="myTable" class="cell-border" style="width:100%">';
+            echo '<thead>';
+            echo '<tr>';
+            echo '<th>Money</th>';
+            echo '</tr>';
+            echo '</thead>';
+            echo '<tbody>';
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo '<tr>';
+                echo '<td>' . $row["revenue"] . '</td>';
+                echo '</tr>';
+            }
+            echo '</tbody>';
+            echo '</table>';
         } else if (isset($_POST['option4'])) {
             $query = "SELECT e.event_id,t.event_name, e.date,e.number_of_waiters,e.number_of_cookes
             FROM team6_Events as e
@@ -384,6 +401,67 @@ include "db.php";
                 echo '<td>' . $row["date"] . '</td>';
                 echo '<td>' . $row["number_of_waiters"] . '</td>';
                 echo '<td>' . $row["number_of_cookes"] . '</td>';
+                echo '</tr>';
+            }
+            echo '</tbody>';
+            echo '</table>';
+        } else if (isset($_POST['option5'])) {
+
+            $v_event_id = $_POST['eventId'];
+            $v_staff_id = $_POST['staffId'];
+
+            $query = "CALL Team6_Add_staff_to_event($v_event_id, $v_staff_id)";
+            $result = mysqli_query($connection, $query);
+
+            if (!$result) {
+                die("Stored procedure call failed.");
+            }
+            $row = mysqli_fetch_assoc($result);
+            echo '<div class="table-sql">';
+            echo '<table id="myTable" class="cell-border" style="width:100%">';
+            echo '<thead>';
+            echo '<tr>';
+            echo '<th>Message</th>';
+            echo '</tr>';
+            echo '</thead>';
+            echo '<tbody>';
+                echo '<tr>';
+                echo '<td>' . $row["message"] . '</td>';
+                echo '</tr>';  
+            echo '</tbody>';
+            echo '</table>';
+        }  else if (isset($_POST['option8'])) {
+            $query = "SELECT e.event_id, e.customer_id, c.coust_first_name, c.coust_last_name, c.coust_phone, COUNT(event_id) AS total_events
+            FROM team6_Events AS e
+            INNER JOIN team6_customer AS c ON e.customer_id = c.coust_id
+            GROUP BY e.customer_id
+            HAVING COUNT(event_id) > 1";
+            $result = mysqli_query($connection, $query);
+
+            if (!$result) {
+                die("DB query failed.");
+            }
+            echo '<div class="table-sql">';
+            echo '<table id="myTable" class="cell-border" style="width:100%">';
+            echo '<thead>';
+            echo '<tr>';
+            echo '<th>Event ID</th>';
+            echo '<th>Customer ID</th>';
+            echo '<th>First Name</th>';
+            echo '<th>Last Name</th>';
+            echo '<th>Phone Number</th>';
+            echo '<th>Total Events</th>';
+            echo '</tr>';
+            echo '</thead>';
+            echo '<tbody>';
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo '<tr>';
+                echo '<td>' . $row["event_id"] . '</td>';
+                echo '<td>' . $row["customer_id"] . '</td>';
+                echo '<td>' . $row["coust_first_name"] . '</td>';
+                echo '<td>' . $row["coust_last_name"] . '</td>';
+                echo '<td>' . $row["coust_phone"] . '</td>';
+                echo '<td>' . $row["total_events"] . '</td>';
                 echo '</tr>';
             }
             echo '</tbody>';
