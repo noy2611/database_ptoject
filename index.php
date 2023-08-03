@@ -57,7 +57,6 @@ include "db.php";
                     <form action="index.php#myTable" method="POST">
                         <h4>2</h4>
                         <h5>Show upcoming events and their associated customers </h5>
-                        <br>
                         <input type="submit" id="option2" class="btn btn-primary" value="Click" name="option2">
                     </form>
                 </div>
@@ -68,10 +67,12 @@ include "db.php";
                     <input type="submit" id="option3" class="btn btn-primary" value="Click">
                 </div>
                 <div class="box-grid">
-                    <h4>4</h4>
-                    <h5>Display events that are short on Waiters or Chefs. </h5>
-                    <br>
-                    <input type="submit" id="option4" class="btn btn-primary" value="Click">
+                    <form action="index.php#myTable" method="POST">
+                        <h4>4</h4>
+                        <h5>Display events that are short on Waiters or Chefs. </h5>
+                        <br>
+                        <input type="submit" id="option4" name="option4" class="btn btn-primary" value="Click">
+                    </form>
                 </div>
                 <div class="box-grid">
                     <h4>5</h4>
@@ -286,7 +287,7 @@ include "db.php";
         <!-- php -->
         <?php
 
-         if (isset($_POST['option1'])) {
+        if (isset($_POST['option1'])) {
             $weeks = $_POST['weeks'];
             $query = "SELECT e.event_id, t.event_name, e.date 
                       FROM team6_Events as e
@@ -317,8 +318,7 @@ include "db.php";
             }
             echo '</tbody>';
             echo '</table>';
-        }
-        else if (isset($_POST['option2'])) {
+        } else if (isset($_POST['option2'])) {
             $query = "SELECT e.event_id, et.event_name, c.coust_first_name, c.coust_last_name, e.date
                                 FROM team6_Events AS e
                                 INNER JOIN team6_customer AS c ON e.customer_id = c.coust_id
@@ -353,10 +353,42 @@ include "db.php";
             }
             echo '</tbody>';
             echo '</table>';
+        } else if (isset($_POST['option4'])) {
+            $query = "SELECT e.event_id,t.event_name, e.date,e.number_of_waiters,e.number_of_cookes
+            FROM team6_Events as e
+            INNER JOIN team6_event_types as t 
+            ON e.event_type_id=t.event_type_id
+            WHERE number_of_waiters > 1 OR number_of_cookes > 1
+            Order by date";
+            $result = mysqli_query($connection, $query);
+
+            if (!$result) {
+                die("DB query failed.");
+            }
+            echo '<div class="table-sql">';
+            echo '<table id="myTable" class="cell-border" style="width:100%">';
+            echo '<thead>';
+            echo '<tr>';
+            echo '<th>Event ID</th>';
+            echo '<th>Event Name</th>';
+            echo '<th>Date</th>';
+            echo '<th>Number of Waiters needed</th>';
+            echo '<th>Number of Cooks needed</th>';
+            echo '</tr>';
+            echo '</thead>';
+            echo '<tbody>';
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo '<tr>';
+                echo '<td>' . $row["event_id"] . '</td>';
+                echo '<td>' . $row["event_name"] . '</td>';
+                echo '<td>' . $row["date"] . '</td>';
+                echo '<td>' . $row["number_of_waiters"] . '</td>';
+                echo '<td>' . $row["number_of_cookes"] . '</td>';
+                echo '</tr>';
+            }
+            echo '</tbody>';
+            echo '</table>';
         }
-
-       
-
         ?>
 
         </div>
